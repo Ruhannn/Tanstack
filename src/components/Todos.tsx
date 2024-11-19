@@ -27,6 +27,7 @@ export default function Todos() {
   const handelDeleteTodoSubmit = (id: number) => deleteTodoMutation.mutate(id);
   return (
     <>
+      <h1 className="mb-4 text-2xl font-bold text-gray-200">Todo</h1>
       {/* Display Todos IDs if needed */}
       {/* {todosIdsQuery.data?.map((id) => (
       <p key={id}>id: {id}</p>
@@ -34,8 +35,7 @@ export default function Todos() {
 
       <form
         onSubmit={handleSubmit(handelCreateTodoSubmit)}
-        className="w-full max-w-md space-y-4 bg-[#2c2f3a] p-6 rounded-lg shadow-md"
-      >
+        className="w-full max-w-md space-y-4 bg-[#2c2f3a] p-6 rounded-lg shadow-md">
         <h4 className="text-lg font-semibold text-gray-200">Create New Todo</h4>
 
         <input
@@ -55,9 +55,8 @@ export default function Todos() {
         <button
           disabled={createTodoMutation.isPending}
           type="submit"
-          className="w-full py-2 font-semibold text-gray-100 transition duration-200 bg-indigo-600 rounded hover:bg-indigo-700 disabled:opacity-50"
-        >
-          {createTodoMutation.isPending ? "Cheating..." : "Cheat Todo"}
+          className="w-full py-2 font-semibold text-gray-100 transition duration-200 bg-indigo-600 rounded hover:bg-indigo-700 disabled:opacity-50">
+          {createTodoMutation.isPending ? "Creating..." : "Create Todo"}
         </button>
       </form>
 
@@ -65,12 +64,13 @@ export default function Todos() {
         {todosQueries.map(({ data }) => (
           <li
             key={data?.id}
-            className="p-4 bg-[#2c2f3a] rounded-lg shadow-md flex flex-col space-y-2"
-          >
+            className="p-4 bg-[#2c2f3a] rounded-lg shadow-md flex flex-col space-y-2">
             <div className="text-sm text-gray-400">ID: {data?.id}</div>
             {/* delete btn */}
             {data && data.id && (
-              <button onClick={() => handelDeleteTodoSubmit(data.id!)}>
+              <button
+                className="text-white bg-red-600"
+                onClick={() => handelDeleteTodoSubmit(data.id!)}>
                 Delete
               </button>
             )}
@@ -86,8 +86,7 @@ export default function Todos() {
             <div>
               <button
                 disabled={data?.checked}
-                onClick={() => handelMarkAsDoneSubmit(data)}
-              >
+                onClick={() => handelMarkAsDoneSubmit(data)}>
                 {data?.checked ? "Done" : "Mark as Done"}
               </button>
             </div>
